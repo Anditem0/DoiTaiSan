@@ -1,0 +1,16 @@
+name: DoiDo
+main: Ki\Main
+author: Ki
+api: 4.0.0
+web: https://web.the-void.fun/
+version: 1.0
+
+commands:
+ doixu:
+  description: "Đổi Coin từ money và đổi Đá Donate"
+  permission: doixu.command
+  
+permissions:
+  doixu.command:
+    default: true
+  
