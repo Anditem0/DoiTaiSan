@@ -1,13 +1,12 @@
-name: DoiDo
+name: DoiCoin
 main: Ki\Main
-author: Ki
+author: của ông nào trên youtube á không nhớ nữa
 api: 4.0.0
-web: https://web.the-void.fun/
 version: 1.0
 
 commands:
  doixu:
-  description: "Đổi Coin từ money và đổi Đá Donate"
+  description: "Đổi Coin từ money và ngược lại "
   permission: doixu.command
   
 permissions:
