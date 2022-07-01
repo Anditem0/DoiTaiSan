@@ -52,9 +52,6 @@ class Main extends PluginBase implements Listener {
           $this->DoiCoin($sender);
           break;
         case 1:
-          $this->DoiDa($sender);
-          break;
-        case 2:
           $this->DoiMoney($sender);
           break;
       }
@@ -65,7 +62,6 @@ class Main extends PluginBase implements Listener {
     $form->setTitle("§lGIAO DIỆN Đổi Đồ");
     $form->setContent("§7[§e➸§7]§7 Tiền của bạn: §e" . $money.", §7coin của bạn:§e ".$coin);
     $form->addButton("§l§c• §9Đổi Coin §c•\n§r§8Nhấn để xem",1,"https://cdn-icons-png.flaticon.com/512/1490/1490853.png");
-    $form->addButton("§l§c• §9Đổi Đá Donate §c•\n§r§8Nhấn để xem",1,"https://cdn-icons-png.flaticon.com/512/4405/4405457.png");
     $form->addButton("§l§c• §9Đổi Money §c•\n§r§8Nhấn để xem",1,"https://cdn-icons-png.flaticon.com/512/639/639365.png");
     $form->sendToPlayer($sender);
     return $form;
@@ -96,47 +92,6 @@ class Main extends PluginBase implements Listener {
               return $form;
               }
               
-  public function DoiDa(Player $sender){ 
-    $api = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
-    $form = $api->createCustomForm(function(Player $sender, array $data = null){
-           if($data == null) return false;
-           if($data[1]== null) return false;
-          if(!is_numeric($data[1])){
-		  $player->sendMessage("§l§f§•[§c+§f]§r Vui lòng Nhập Số xu bạn muốn mua");
-		  return false;
-	  }
-	      
-           $coin = $this->coin->myCoin($sender);
-         if($coin >= $data[1]*10){
-           $this->coin->reduceCoin($sender->getName(), $data[1]*10);
-           $inv = $sender->getInventory();
-           $item = ItemFactory::getInstance()->get(318, 0, $data[1]);
-           $item->getNamedTag()->setString("donate", "donate");
-           $item->setCustomName("§l§6Xu §6Donate");
-           $item->setLore(["\n§r§l§r- Vật phẩm để đổi đồ trong §awarp donate\n §l§cLưu ý:§r không trồng xuốn đất sẽ bị mất \n§r(click lên không để đổi về xu)"]);
-           
-           $inv->addItem($item);
-           $sender->sendMessage("§a Bạn đã nhận được ".$data[1]." §rxu donate");
-           
-         }
-    });
-    $form->setTitle("§l§1• §aMua §eXu Donate §1•");
-    $form->addLabel("§l§eHãy Nhập Số Xu Bạn muốn mua");
-    $form->addInput("§l§f§•[§c+§f]§r 10 coin = 1 Xu", "0");
-    $form->sendToPlayer($sender);
-    return $form;
-       }
-  public function onuse(PlayerInteractEvent $event){
-    $player = $event->getPlayer();
-    $item = $event->getItem();
-    if (!$item->getNamedTag()->getTag("donate")) {
-            return true;
-        }
-    $item->setCount($item->getCount() - 1);
-    $player->getInventory()->setItemInHand($item);
-    $this->coin->addCoin($player, 10);
-    $player->sendMessage("§aBạn vừa dùng đá trade và nhận được §e10 Coin");
-    }
   public function DoiMoney(Player $sender){
        $api = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
        $form = $api->createCustomForm(function(Player $sender, array $data = null){
